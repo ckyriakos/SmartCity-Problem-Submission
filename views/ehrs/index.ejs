@@ -1,0 +1,16 @@
+
+<!-- Searching and showing author names -R FROM CRUD-->
+
+<h2>Search Ehrs</h2>
+<form action="/ehrs" method="GET">
+  <div>
+  <label>EHR Title</label>
+  <input type="text" name="title" value="<%= searchOptions.title %>">
+  <div>
+  <button type="submit">Search</button>
+</form>
+<div>
+<% ehrs.forEach(ehr => { %>
+  <img src="<%= ehr.filePath %>" width="100px" height="150px" >
+<% }) %>
+</div>
