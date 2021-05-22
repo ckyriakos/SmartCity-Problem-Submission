@@ -1,7 +1,7 @@
 
 <!-- Searching and showing author names -R FROM CRUD-->
 
-<h2>Search Authors</h2>
+<h2>Search Patients</h2>
 <form action="/authors" method="GET">
   <label>Amka</label>
   <input type="text" name="amka" value="<%= searchOptions.amka %>">
@@ -13,7 +13,9 @@
   	<td><%= author.firstName %></td>
   	<td><%= author.lastName %></td>
   	<td><%= author.amka %></td>
-  	
-  </tr>
-  <!--<div><%= author.amka %></div>-->
+    <td><a href="/authors/<%= author.id %>">View</a></td>
+    <td><a href="/authors/<%= author.id %>/edit">Edit</a></td>
+    <td> <%- include('../partials/deleteForm',
+              { url: `/authors/${author.id}` }) %></td>
+    </tr>
 <% }) %>

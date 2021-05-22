@@ -11,6 +11,8 @@
 </form>
 <div>
 <% ehrs.forEach(ehr => { %>
-  <img src="<%= ehr.filePath %>" width="100px" height="150px" >
+  <a href="/ehrs/<%= ehr.id %>">
+  <img src="<%= ehr.filePath %>" height="150" width="100">
+</a>
 <% }) %>
 </div>

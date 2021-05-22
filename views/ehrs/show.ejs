@@ -1,0 +1,10 @@
+<h2><%= ehr.title %></h2>
+<img width="100" height="150" src="<%= ehr.filePath %>">
+<div>Created At: <%= ehr.timeCreated.toDateString() %></div>
+<div>Patient First Name: <%= ehr.author.firstName %></div>
+<div>Patient Last Name: <%= ehr.author.lastName %></div>
+<div>Description: <%= ehr.description %></div>
+
+<a href="/ehrs/<%= ehr.id %>/edit">Edit</a>
+<%- include('../partials/deleteForm', { url: `/ehrs/${ehr.id}` }) %>
+<a href="/authors/<%= ehr.author.id %>">View Patient</a>

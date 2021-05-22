@@ -32,7 +32,7 @@ const ehrSchema = new mongoose.Schema({
 })
 
 ehrSchema.virtual('filePath').get(function() {
-  if (this.file != null && this.filePath != null) {
+  if (this.file != null && this.fileType != null) {
     return `data:${this.fileType};charset=utf-8;base64,${this.file.toString('base64')}`
   }
 })
