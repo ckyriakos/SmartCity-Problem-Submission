@@ -106,7 +106,7 @@ router.get('/:id/edit',async(req,res) => {
   }
 })
 
-// Update Book Route
+// Update ehr Route
 router.put('/:id', async (req, res) => {
   let ehr
 
@@ -129,7 +129,7 @@ router.put('/:id', async (req, res) => {
   }
 })
 
-// Delete Book Page
+// Delete ehr Page
 router.delete('/:id', async (req, res) => {
   let ehr
   try {
