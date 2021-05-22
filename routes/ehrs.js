@@ -82,15 +82,7 @@ async function renderNewPage(res, ehr, hasError = false) {
   }
 }
 
-// function that saves the file to the db, instead of using multer
-function saveFile(ehr, fileEncoded) {
-  if (fileEncoded == null) return
-  const file = JSON.parse(fileEncoded)
-  if (file != null && MimeTypes.includes(file.type)) {
-    ehr.file = new Buffer.from(file.data, 'base64')
-    ehr.fileType = file.type
-  }
-}
+
 
 // show  ehr route
 router.get('/:id',async(req,res) => {
@@ -160,7 +152,9 @@ router.delete('/:id', async (req, res) => {
 async function renderEditPage(res, ehr, hasError = false) {
   renderFormPage(res, ehr, 'edit', hasError)
 }
-
+async function renderNewPage(res, ehr, hasError = false) {
+  renderFormPage(res, ehr, 'new', hasError)
+}
 
 async function renderFormPage(res, ehr, form, hasError = false) {
   try {
@@ -179,6 +173,16 @@ async function renderFormPage(res, ehr, form, hasError = false) {
     res.render(`ehrs/${form}`, params)
   } catch {
     res.redirect('/ehrs')
+  }
+}
+// function that saves the file to the db, instead of using multer
+
+function saveFile(ehr, fileEncoded) {
+  if (fileEncoded == null) return
+  const file = JSON.parse(fileEncoded)
+  if (file != null && MimeTypes.includes(file.type)) {
+    ehr.file = new Buffer.from(file.data, 'base64')
+    ehr.fileType = file.type
   }
 }
 module.exports = router
