@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Ehr = require('./ehr')
 
-const authorSchema = new mongoose.Schema({
+const patientSchema = new mongoose.Schema({
   /*name: {
     type: String,
     required: true
@@ -25,8 +25,8 @@ const authorSchema = new mongoose.Schema({
 })
 
 //preventing patient deletion if he has assigned ehrs
-authorSchema.pre('remove', function(next) {
-  Ehr.find({ author: this.id }, (err, ehrs) => {
+patientSchema.pre('remove', function(next) {
+  Ehr.find({ patient: this.id }, (err, ehrs) => {
     if (err) {
       next(err)
     } else if (ehrs.length > 0) {
@@ -36,4 +36,4 @@ authorSchema.pre('remove', function(next) {
     }
   })
 })
-module.exports = mongoose.model('Author', authorSchema)
+module.exports = mongoose.model('Patient', patientSchema)

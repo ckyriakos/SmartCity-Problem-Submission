@@ -1,0 +1,15 @@
+<h2 class="page-header"><%= patient.firstName %></h2>
+<div class="btn-row">
+	<a  class="btn btn-primary" href="/patients/<%= patient.id %>/edit">Edit</a>
+	<%- include('../partials/deleteForm',
+            { url: `/patients/${patient.id}` }) %>
+</div>
+<% if (ehrForPatient.length > 0) { %>
+  <h2 class="page-header">Ehr for Patient</h2>
+  <% ehrForPatient.forEach(ehr => { %>
+   <a href="/ehrs/<%= ehr.id %>">
+    	<img height="150" width="100" src="<%= ehr.filePath %>">
+   </a>
+  <% }) %>
+<% } %>
+

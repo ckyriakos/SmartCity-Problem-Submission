@@ -1,8 +1,11 @@
-<h2>New Book</h2>
+<!-- for ehr creation-->
+
+<h2 class="page-header">New Ehr</h2>
 <form action="/ehrs" method="POST" >
   <%- include('_form_fields') %>
-  <a href="/ehrs">Cancel</a>
-  <button type="submit">Create</button>
+  <div class="form-row form-row-end btn-row">
+    <a class="btn btn-danger" href="/ehrs">Cancel</a>
+    <button class="btn btn-primary" type="submit">Create</button>
+  </div>
 </form>
 
-<!--enctype="multipart/form-data"-->

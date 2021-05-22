@@ -1,0 +1,41 @@
+
+<!-- Searching and showing patient names -R FROM CRUD-->
+
+<h2 class="page-header">Search Patients</h2>
+<form action="/patients" method="GET">
+  <div class="form-row">
+    <div class="form-item">
+      <label>Amka</label>
+      <input type="text" name="amka" value="<%= searchOptions.amka %>">
+    </div>
+  </div>
+  <div class="form-row form-row-end">
+    <button class="btn btn-primary" type="submit">Search</button>
+  </div>
+</form>
+<br>
+<h2 class="page-header">Patients</h2>
+
+  <table class="styled-table">
+    <thead>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>AMKA</th>
+        <th>Birth Date</th>
+    </thead>
+    <% patients.forEach(patient => { %>
+    <tbody>
+        <tr>
+  	       <td><%= patient.firstName %></td>
+  	       <td><%= patient.lastName %></td>
+  	       <td><%= patient.amka %></td>
+           <td><%= patient.birthDate.toDateString() %></td>
+           <td><a class="btn btn-primary" href="/patients/<%= patient.id %>">View</a></td>
+           <td><a class="btn btn-primary" href="/patients/<%= patient.id %>/edit">Edit</a></td>
+           <td> <%- include('../partials/deleteForm',
+              { url: `/patients/${patient.id}` }) %></td>
+        </tr>
+    <% }) %>
+
+
+

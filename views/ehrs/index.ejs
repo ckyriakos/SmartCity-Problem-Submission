@@ -1,18 +1,18 @@
 
 <!-- Searching and showing author names -R FROM CRUD-->
 
-<h2>Search Ehrs</h2>
+<h2 class="page-header">Search EHR</h2>
 <form action="/ehrs" method="GET">
-  <div>
-  <label>EHR Title</label>
-  <input type="text" name="title" value="<%= searchOptions.title %>">
-  <div>
-  <button type="submit">Search</button>
+  <div class="form-row">
+  	<div class="form-item">
+  		<label>EHR Title</label>
+  		<input type="text" name="title" value="<%= searchOptions.title %>">
+  	</div>
+  </div>
+
+  <div class="form-row form-row-end">
+    <button class="btn btn-primary" type="submit">Search</button>
+  </div>
 </form>
-<div>
-<% ehrs.forEach(ehr => { %>
-  <a href="/ehrs/<%= ehr.id %>">
-  <img src="<%= ehr.filePath %>" height="150" width="100">
-</a>
-<% }) %>
-</div>
+<br>
+<%- include('../partials/ehrGrid', { ehrs: ehrs, large: true }) %>

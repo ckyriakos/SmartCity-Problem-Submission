@@ -1,0 +1,22 @@
+
+<div class="form-row">
+	<div class="form-item">
+		<label>First Name</label>
+		<input type="text" name="firstName" value="<%= patient.firstName %>">
+	</div>
+	<div class="form-item">
+		<label>LAST Name</label>
+		<input type="text" name="lastName" value="<%= patient.lastName %>">
+	</div>
+	<div class="form-item">
+		<label>AMKA</label>
+		<input type="text" name="amka" value="<%= patient.amka %>">
+	</div>
+	<div class="form-item">
+		<label>Birth Date</label>
+		<input type="date" name="birthDate"
+	   		value="<%= patient.birthDate == null ? '' :
+	   		patient.birthDate.toISOString().split('T')[0] %>">
+
+	</div>
+</div>

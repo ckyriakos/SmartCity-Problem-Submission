@@ -9,7 +9,7 @@ const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 // Routes Variables
 const indexRouter = require('./routes/index')
-const authorRouter = require('./routes/authors')
+const patientRouter = require('./routes/patients')
 const ehrRouter = require('./routes/ehrs')
 // Views
 app.set('view engine', 'ejs')
@@ -28,6 +28,6 @@ db.on('error', error => console.error(error))
 db.once('open', () => console.log('Connected to Mongoose'))
 
 app.use('/', indexRouter)
-app.use('/authors', authorRouter)
+app.use('/patients', patientRouter)
 app.use('/ehrs', ehrRouter)
 app.listen(process.env.PORT || 3000)

@@ -1,20 +1,32 @@
-<label>Ttile</label>
-<input type="text" name="title" value="<%= ehr.title %>">
-<label>Patient</label>
-  <select name="author">
-  <% authors.forEach(author => { %>
-    <% if (author.id === ehr.author) { %>
-      <option selected label="<%= author.amka %>" value="<%= author.id %>">
+<div class="form-row">
+  <div class="form-item">
+    <label>Ttile</label>
+    <input type="text" name="title" value="<%= ehr.title %>">
+  </div>
+
+  <div class="form-item">
+    <label>Patient</label>
+    <select name="patient">
+  <% patients.forEach(patient => { %>
+    <% if (patient.id === ehr.patient) { %>
+      <option selected label="<%= patient.amka %>" value="<%= patient.id %>">
     <% } else { %>
-      <option label="<%= author.amka %>" value="<%= author.id %>">
+      <option label="<%= patient.amka %>" value="<%= patient.id %>">
     <% } %>
   <% }) %>
   </select>
-  <div>
-  <label>Description</label>
-  <textarea name="description"><%= ehr.description %></textarea>
 </div>
-<div>
-  <label>File</label>
-  <input type="file" name="fileup" class="filepond">
+</div>
+
+<div class="form-row">
+  <div class="form-item form-item-no-grow">
+    <label>File</label>
+    <input type="file" name="fileup" class="ehr-cover filepond" >
+  </div>
+
+  <div class="form-item">
+    <label>Description</label>
+    <textarea name="description"><%= ehr.description %></textarea>
+  </div>
+
 </div>

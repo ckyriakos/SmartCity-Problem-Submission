@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const Author = require('../models/author')
+const Patient = require('../models/patient')
 const Ehr = require('../models/ehr')
 //const multer = require("multer")
 //const path = require('path')
@@ -43,7 +43,7 @@ router.post('/', /*upload.single('fileup'),*/ async (req, res) => {
   //const fileName = req.file != null ? req.file.filename : null //see if file exits and get name
   const ehr = new Ehr({
     title: req.body.title,
-    author: req.body.author,
+    patient: req.body.patient,
     description: req.body.description
     //file: fileName
   })
@@ -51,8 +51,7 @@ router.post('/', /*upload.single('fileup'),*/ async (req, res) => {
   saveFile(ehr, req.body.fileup)
   try {
     const newEhr = await ehr.save()
-    //console.log(req.body)
-    //console.log(req.file)
+    
     res.redirect('/ehrs')
   } catch {
       renderNewPage(res, ehr, true)
@@ -71,9 +70,9 @@ router.post('/', /*upload.single('fileup'),*/ async (req, res) => {
 }*/
 async function renderNewPage(res, ehr, hasError = false) {
   try {
-    const authors = await Author.find({})
+    const patients = await Patient.find({})
     const params = {
-      authors: authors,
+      patients: patients,
       ehr: ehr
     }
     if (hasError) params.errorMessage = 'Error Creating ehr'
@@ -97,7 +96,7 @@ function saveFile(ehr, fileEncoded) {
 router.get('/:id',async(req,res) => {
   try {
     const ehr = await Ehr.findById(req.params.id)
-                                  .populate('author')
+                                  .populate('patient')
                                   .exec()
      res.render('ehrs/show', {ehr: ehr})                             
   } catch {
@@ -122,7 +121,7 @@ router.put('/:id', async (req, res) => {
   try {
     ehr = await Ehr.findById(req.params.id)
     ehr.title = req.body.title
-    ehr.author = req.body.author
+    ehr.patient = req.body.patient
     ehr.description = req.body.description
     if (req.body.fileup != null && req.body.fileup !== '') {
       saveFile(ehr, req.body.fileup)
@@ -165,9 +164,9 @@ async function renderEditPage(res, ehr, hasError = false) {
 
 async function renderFormPage(res, ehr, form, hasError = false) {
   try {
-    const authors = await Author.find({})
+    const patients = await Patient.find({})
     const params = {
-      authors: authors,
+      patients: patients,
       ehr: ehr
     }
     if (hasError) {

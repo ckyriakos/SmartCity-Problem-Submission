@@ -8,10 +8,10 @@ const ehrSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  author: {
+  patient: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: 'Author'
+    ref: 'Patient'
   },
   description: {
     type: String,
