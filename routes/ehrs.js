@@ -1,3 +1,6 @@
+//ROUTING FOR EHR CRUD OPERATIONS
+// Ignore the commented code, it's for the use of multer instead of filepond. IN this case some changes should be made to the rest of the code.
+
 const express = require('express')
 const router = express.Router()
 const Patient = require('../models/patient')
@@ -148,7 +151,7 @@ router.delete('/:id', async (req, res) => {
   }
 })
 
-
+//checking for errors in the asynchronous functions for rendering
 async function renderEditPage(res, ehr, hasError = false) {
   renderFormPage(res, ehr, 'edit', hasError)
 }

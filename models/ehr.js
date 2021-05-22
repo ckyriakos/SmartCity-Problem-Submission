@@ -40,4 +40,3 @@ ehrSchema.virtual('filePath').get(function() {
 
 module.exports = mongoose.model('Ehr', ehrSchema)
 
-//module.exports.fileBasePath = fileBasePath

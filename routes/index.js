@@ -1,3 +1,4 @@
+// Routing for index
 const express = require('express')
 const router = express.Router()
 const Ehr = require('../models/ehr')

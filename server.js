@@ -1,17 +1,19 @@
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
-
+//variables for npm packages
 const express = require('express')
 const app = express()
 const expressLayouts = require('express-ejs-layouts')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
+
 // Routes Variables
 const indexRouter = require('./routes/index')
 const patientRouter = require('./routes/patients')
 const ehrRouter = require('./routes/ehrs')
-// Views
+
+// Views set for page rendering
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/views')
 app.set('layout', 'layouts/layout')
@@ -30,4 +32,5 @@ db.once('open', () => console.log('Connected to Mongoose'))
 app.use('/', indexRouter)
 app.use('/patients', patientRouter)
 app.use('/ehrs', ehrRouter)
+
 app.listen(process.env.PORT || 3000)
