@@ -178,7 +178,7 @@ async function renderFormPage(res, ehr, form, hasError = false) {
 // function that saves the file to the db, instead of using multer
 
 function saveFile(ehr, fileEncoded) {
-  if (fileEncoded == null) return
+if(fileEncoded == null || fileEncoded.length < 1) return
   const file = JSON.parse(fileEncoded)
   if (file != null && MimeTypes.includes(file.type)) {
     ehr.file = new Buffer.from(file.data, 'base64')
