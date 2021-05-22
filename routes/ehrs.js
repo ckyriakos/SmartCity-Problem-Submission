@@ -51,8 +51,8 @@ router.post('/', /*upload.single('fileup'),*/ async (req, res) => {
   saveFile(ehr, req.body.fileup)
   try {
     const newEhr = await ehr.save()
-    
-    res.redirect('/ehrs')
+    res.redirect(`ehrs/${newEhr.id}`)
+
   } catch {
       renderNewPage(res, ehr, true)
 
