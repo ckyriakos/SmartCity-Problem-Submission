@@ -1,8 +1,3 @@
+
 <h2 class="page-header">Recently Added</h2>
-<div>
-  <% ehrs.forEach(ehr => { %>
-    <a href="/ehrs/<%= ehr.id %>">
-      <img height="150" width="100" src="<%= ehr.filePath %>">
-    </a>
-  <% }) %>
-</div>
+<%- include('partials/ehrGrid', { ehrs: ehrs, large: true }) %>
