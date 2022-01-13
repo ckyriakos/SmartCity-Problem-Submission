@@ -1,0 +1,24 @@
+<!-- display issue details-->
+<h2 class="page-header"><%= issue.title %></h2>
+<div class="ehr-details">
+	<div>
+		<img class="ehr-cover" width="100" height="150" src="<%= issue.filePath %>">
+		<div class="ehr-details-btn-grid">
+			<a class="btn btn-primary" href="/issues/<%= issue.id %>/edit">Edit</a>
+      			<%- include('../partials/deleteForm', { url: `/issues/${issue.id}` }) %>
+     	 	<a class="btn btn-primary ehr-details-patient-button" href="/streets/<%= issue.street.id %>">View Street</a>
+     	</div>
+     </div>
+     <div class="ehr-details-grid">
+		<div class="ehr-details-label">Created At:</div>
+		<div> <%= issue.timeCreated.toDateString() %></div>
+		<div class="ehr-details-label">Street Name:</div>
+		<div> <%= issue.street.addressName %></div>
+		<div class="ehr-details-label">Address Number:</div>
+		<div><%= issue.street.addressNum %></div>
+		<div class="ehr-details-label">Postal Code:</div>
+		<div><%= issue.street.postal %></div>
+		<div class="ehr-details-label" >Description:</div>
+		<div><%= issue.description %></div>
+	</div>
+</div>

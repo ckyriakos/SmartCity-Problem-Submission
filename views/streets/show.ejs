@@ -1,0 +1,16 @@
+<!-- displaying streets and their issues-->
+<h2 class="page-header"><%= street.addressName %></h2>
+<div class="btn-row">
+	<a  class="btn btn-primary" href="/streets/<%= street.id %>/edit">Edit</a>
+	<%- include('../partials/deleteForm',
+            { url: `/streets/${street.id}` }) %>
+</div>
+<% if (issueForStreet.length > 0) { %>
+  <h2 class="page-header">Issues on Street</h2>
+  <% issueForStreet.forEach(issue => { %>
+   <a href="/issues/<%= issue.id %>">
+    	<img height="150" width="100" src="<%= issue.filePath %>">
+   </a>
+  <% }) %>
+<% } %>
+

@@ -1,16 +1,16 @@
 // Routing for index
 const express = require('express')
 const router = express.Router()
-const Ehr = require('../models/ehr')
+const Issue = require('../models/issue')
 
 router.get('/', async (req, res) => {
-  let ehrs
+  let issues
   try {
-    ehrs = await Ehr.find().sort({ createdAt: 'desc' }).limit(10).exec()
+    issues = await Issue.find().sort({ createdAt: 'desc' }).limit(10).exec()
   } catch {
-    ehrs = []
+    issues = []
   }
-  res.render('index', { ehrs: ehrs })
+  res.render('index', { issues: issues })
 })
 
 module.exports = router

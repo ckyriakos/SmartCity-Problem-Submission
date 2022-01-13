@@ -1,5 +1,5 @@
 <!-- deleting  patients -D FROM CRUD-->
 
 <form method="POST" action="<%= url %>?_method=DELETE">
-  <button  class="btn btn-danger" type="submit">Delete</button>
+  <button  class="btn btn-danger" type="submit" onclick="return confirm('Are you sure you want to Delete?');">Delete</button>
 </form>

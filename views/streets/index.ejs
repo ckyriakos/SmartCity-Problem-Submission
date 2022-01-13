@@ -1,0 +1,44 @@
+
+<!-- Searching and showing street names -R FROM CRUD-->
+
+<h2 class="page-header">Search Street</h2>
+<form action="/streets" method="GET">
+  <div class="form-row">
+    <div class="form-item">
+      <label>Address Name</label>
+      <input type="text" name="addressName" value="<%= searchOptions.addressName %>">
+    </div>
+  </div>
+  <div class="form-row form-row-end">
+    <button class="btn btn-primary" type="submit">Search</button>
+  </div>
+ 
+</form>
+<br>
+<h2 class="page-header">Streets</h2>
+
+  <table class="styled-table">
+    <thead>
+        <th>Name</th>
+        <th>Number</th>
+        <th>Postal Code</th>
+        <th>Maps</th>
+        <!--<th>Number of Claims</th>-->
+    </thead>
+    <% streets.forEach(street => { %>
+    <tbody>
+        <tr>
+  	       <td><%= street.addressName %></td>
+  	       <td><%= street.addressNum %></td>
+           <td><%= street.postal %></td>
+           <td><%= street.maps %></td>
+  	       <!--<td><%= %></td>-->
+           <td><a class="btn btn-primary" href="/streets/<%= street.id %>">View</a></td>
+           <td><a class="btn btn-primary" href="/streets/<%= street.id %>/edit">Edit</a></td>
+           <td> <%- include('../partials/deleteForm',
+              { url: `/streets/${street.id}` }) %></td>
+        </tr>
+    <% }) %>
+
+
+

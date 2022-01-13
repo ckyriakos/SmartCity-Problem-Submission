@@ -1,0 +1,10 @@
+<!-- Form display for issues creating-->
+<h2 class="page-header">Edit Issue</h2>
+<form action="/issues/<%= issue.id %>?_method=PUT" method="POST">
+  <%- include('_form_fields') %>
+	<div class="form-row form-row-end btn-row">
+    	<a class="btn btn-danger" href="/issues">Cancel</a>
+    	<button class="btn btn-primary" type="submit">Update</button>
+  </div>
+</form>
+

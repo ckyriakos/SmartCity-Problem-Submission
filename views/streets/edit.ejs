@@ -1,0 +1,10 @@
+<!-- Updating  streets names -U FROM CRUD-->
+<h2 class="page-header">Edit Street</h2>
+<form action="/streets/<%= street.id %>?_method=PUT" method="POST">
+  <%- include('_form_fields') %>
+  <div class="form-row form-row-end btn-row">
+    <a class="btn btn-danger" href="/streets/<%= street.id %>">Cancel</a>
+    <button class="btn btn-primary" type="submit">Update</button>
+  </div>
+</form>
+

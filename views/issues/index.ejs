@@ -1,11 +1,11 @@
 
 <!-- Searching and showing author names -R FROM CRUD-->
 
-<h2 class="page-header">Search EHR</h2>
-<form action="/ehrs" method="GET">
+<h2 class="page-header">Search Issue</h2>
+<form action="/issues" method="GET">
   <div class="form-row">
   	<div class="form-item">
-  		<label>EHR Title</label>
+  		<label>Issue Title</label>
   		<input type="text" name="title" value="<%= searchOptions.title %>">
   	</div>
   </div>
@@ -15,4 +15,4 @@
   </div>
 </form>
 <br>
-<%- include('../partials/ehrGrid', { ehrs: ehrs, large: true }) %>
+<%- include('../partials/ehrGrid', { issues: issues, large: true }) %>

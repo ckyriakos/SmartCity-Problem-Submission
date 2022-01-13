@@ -1,17 +1,15 @@
 const mongoose = require('mongoose')
 
 
-//const fileBasePath =  'uploads/ehrFiles'
-
-const ehrSchema = new mongoose.Schema({
+const issueSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
   },
-  patient: {
+  street: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: 'Patient'
+    ref: 'Street'
   },
   description: {
     type: String,
@@ -31,12 +29,12 @@ const ehrSchema = new mongoose.Schema({
   }
 })
 
-ehrSchema.virtual('filePath').get(function() {
+issueSchema.virtual('filePath').get(function() {
   if (this.file != null && this.fileType != null) {
     return `data:${this.fileType};charset=utf-8;base64,${this.file.toString('base64')}`
   }
 })
 
 
-module.exports = mongoose.model('Ehr', ehrSchema)
+module.exports = mongoose.model('Issue', issueSchema)
 

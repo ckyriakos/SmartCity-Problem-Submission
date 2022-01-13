@@ -10,8 +10,8 @@ const methodOverride = require('method-override')
 
 // Routes Variables
 const indexRouter = require('./routes/index')
-const patientRouter = require('./routes/patients')
-const ehrRouter = require('./routes/ehrs')
+const streetRouter = require('./routes/streets')
+const issueRouter = require('./routes/issues')
 
 // Views set for page rendering
 app.set('view engine', 'ejs')
@@ -30,7 +30,7 @@ db.on('error', error => console.error(error))
 db.once('open', () => console.log('Connected to Mongoose'))
 
 app.use('/', indexRouter)
-app.use('/patients', patientRouter)
-app.use('/ehrs', ehrRouter)
+app.use('/streets', streetRouter)
+app.use('/issues', issueRouter)
 
 app.listen(process.env.PORT || 3000)

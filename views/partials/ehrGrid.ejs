@@ -1,11 +1,11 @@
-<!-- to diplay ehr preview image -->
+<!-- to diplay issue preview image -->
 
 <% ehrCoverClass = locals.large ? 'ehr-cover-large' : '' %>
 <% ehrGridClass = locals.large ? 'ehr-grid-large' : '' %>
 <div class="ehr-grid <%= ehrGridClass %>">
-  <% ehrs.forEach(ehr => { %>
-    <a href="/ehrs/<%= ehr.id %>">
-      <img class="ehr-cover <%= ehrCoverClass %>" src="<%= ehr.filePath %>">
+  <% issues.forEach(issue => { %>
+    <a href="/issues/<%= issue.id %>">
+      <img class="ehr-cover <%= ehrCoverClass %>" src="<%= issue.filePath %>">
     </a>
   <% }) %>
 </div>

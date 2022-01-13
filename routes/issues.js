@@ -3,8 +3,8 @@
 
 const express = require('express')
 const router = express.Router()
-const Patient = require('../models/patient')
-const Ehr = require('../models/ehr')
+const Street = require('../models/street')
+const Issue = require('../models/issue')
 //const multer = require("multer")
 //const path = require('path')
 //const uploadPath = path.join('public',Ehr.fileBasePath)
@@ -21,14 +21,14 @@ const upload = multer({
 })*/
 // All Ehrs Route
 router.get('/', async (req, res) => {
-  let query = Ehr.find()
+  let query = Issue.find()
   if (req.query.title != null && req.query.title != '') {
     query = query.regex('title', new RegExp(req.query.title, 'i'))
   }
   try {
-    const ehrs = await query.exec()
-    res.render('ehrs/index', {
-      ehrs: ehrs,
+    const issues = await query.exec()
+    res.render('issues/index', {
+      issues: issues,
       searchOptions: req.query
     })
   } catch {
@@ -38,50 +38,42 @@ router.get('/', async (req, res) => {
 
 // New Ehr Route
 router.get('/new', async (req, res) => {
-  renderNewPage(res, new Ehr())
+  renderNewPage(res, new Issue())
 })
 
 // Create Ehr Route
 router.post('/', /*upload.single('fileup'),*/ async (req, res) => {
   //const fileName = req.file != null ? req.file.filename : null //see if file exits and get name
-  const ehr = new Ehr({
+  const issue = new Issue({
     title: req.body.title,
-    patient: req.body.patient,
+    street: req.body.street,
     description: req.body.description
     //file: fileName
   })
   
-  saveFile(ehr, req.body.fileup)
+  saveFile(issue, req.body.fileup)
   try {
-    const newEhr = await ehr.save()
-    res.redirect(`ehrs/${newEhr.id}`)
+    const newIssue = await issue.save()
+    res.redirect(`issues/${newIssue.id}`)
 
   } catch {
-      renderNewPage(res, ehr, true)
+      renderNewPage(res, issue, true)
 
-    /*if(ehr.file != null) {
-      removefile(ehr.file)
-    }*/ //commented since no longer using multer
   }
 })
 
-// in case it fails to save book we delete this img
-/*function removefile(fileName) {
-  fs.unlink(path.join(uploadPath, fileName), err => {
-    if (err) console.error(err)
-  })
-}*/
-async function renderNewPage(res, ehr, hasError = false) {
+
+async function renderNewPage(res, issue, hasError = false) {
   try {
-    const patients = await Patient.find({})
+    const streets = await Street.find({})
     const params = {
-      patients: patients,
-      ehr: ehr
+      streets: streets,
+      issue: issue
     }
-    if (hasError) params.errorMessage = 'Error Creating ehr'
-    res.render('ehrs/new', params)
+    if (hasError) params.errorMessage = 'Error Creating issue'
+    res.render('issues/new', params)
   } catch {
-    res.redirect('/ehrs')
+    res.redirect('/issues')
   }
 }
 
@@ -90,10 +82,10 @@ async function renderNewPage(res, ehr, hasError = false) {
 // show  ehr route
 router.get('/:id',async(req,res) => {
   try {
-    const ehr = await Ehr.findById(req.params.id)
-                                  .populate('patient')
+    const issue = await Issue.findById(req.params.id)
+                                  .populate('street')
                                   .exec()
-     res.render('ehrs/show', {ehr: ehr})                             
+     res.render('issues/show', {issue: issue})                             
   } catch {
       res.redirect('/')
   }
@@ -102,8 +94,8 @@ router.get('/:id',async(req,res) => {
 // edit  ehr route
 router.get('/:id/edit',async(req,res) => {
   try {
-    const ehr = await Ehr.findById(req.params.id)
-    renderEditPage(res, ehr)
+    const issue = await Issue.findById(req.params.id)
+    renderEditPage(res, issue)
   } catch {
     res.redirect('/')
   }
@@ -111,21 +103,21 @@ router.get('/:id/edit',async(req,res) => {
 
 // Update ehr Route
 router.put('/:id', async (req, res) => {
-  let ehr
+  let issue
 
   try {
-    ehr = await Ehr.findById(req.params.id)
-    ehr.title = req.body.title
-    ehr.patient = req.body.patient
-    ehr.description = req.body.description
+    issue = await Issue.findById(req.params.id)
+    issue.title = req.body.title
+    issue.street = req.body.street
+    issue.description = req.body.description
     if (req.body.fileup != null && req.body.fileup !== '') {
-      saveFile(ehr, req.body.fileup)
+      saveFile(issue, req.body.fileup)
     }
-    await ehr.save()
-    res.redirect(`/ehrs/${ehr.id}`)
+    await issue.save()
+    res.redirect(`/issues/${issue.id}`)
   } catch {
-    if (ehr != null) {
-      renderEditPage(res, ehr, true)
+    if (issue != null) {
+      renderEditPage(res, issue, true)
     } else {
       redirect('/')
     }
@@ -134,16 +126,16 @@ router.put('/:id', async (req, res) => {
 
 // Delete ehr Page
 router.delete('/:id', async (req, res) => {
-  let ehr
+  let issue
   try {
-    ehr = await Ehr.findById(req.params.id)
-    await ehr.remove()
-    res.redirect('/ehrs')
+    issue = await Issue.findById(req.params.id)
+    await issue.remove()
+    res.redirect('/issues')
   } catch {
-    if (ehr != null) {
-      res.render('ehrs/show', {
-        ehr: ehr,
-        errorMessage: 'Could not remove ehr'
+    if (issue != null) {
+      res.render('issues/show', {
+        issue: issue,
+        errorMessage: 'Could not remove issue'
       })
     } else {
       res.redirect('/')
@@ -152,40 +144,40 @@ router.delete('/:id', async (req, res) => {
 })
 
 //checking for errors in the asynchronous functions for rendering
-async function renderEditPage(res, ehr, hasError = false) {
-  renderFormPage(res, ehr, 'edit', hasError)
+async function renderEditPage(res, issue, hasError = false) {
+  renderFormPage(res, issue, 'edit', hasError)
 }
-async function renderNewPage(res, ehr, hasError = false) {
-  renderFormPage(res, ehr, 'new', hasError)
+async function renderNewPage(res, issue, hasError = false) {
+  renderFormPage(res, issue, 'new', hasError)
 }
 
-async function renderFormPage(res, ehr, form, hasError = false) {
+async function renderFormPage(res, issue, form, hasError = false) {
   try {
-    const patients = await Patient.find({})
+    const streets = await Street.find({})
     const params = {
-      patients: patients,
-      ehr: ehr
+      streets: streets,
+      issue: issue
     }
     if (hasError) {
       if (form === 'edit') {
-        params.errorMessage = 'Error Updating Ehr'
+        params.errorMessage = 'Error Updating Issue'
       } else {
-        params.errorMessage = 'Error Creating Ehr'
+        params.errorMessage = 'Error Creating Issue'
       }
     }
-    res.render(`ehrs/${form}`, params)
+    res.render(`issues/${form}`, params)
   } catch {
-    res.redirect('/ehrs')
+    res.redirect('/issues')
   }
 }
 // function that saves the file to the db, instead of using multer
 
-function saveFile(ehr, fileEncoded) {
+function saveFile(issue, fileEncoded) {
 if(fileEncoded == null || fileEncoded.length < 1) return
   const file = JSON.parse(fileEncoded)
   if (file != null && MimeTypes.includes(file.type)) {
-    ehr.file = new Buffer.from(file.data, 'base64')
-    ehr.fileType = file.type
+    issue.file = new Buffer.from(file.data, 'base64')
+    issue.fileType = file.type
   }
 }
 module.exports = router
